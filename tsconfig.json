@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", "module": "ES2020", "moduleResolution": "node",
+    "lib": ["ES2020"], "strict": true, "declaration": true,
+    "removeComments": true, "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true, "rootDir": "src", "outDir": "dist/esm"
+  },
+  "include": ["src/**/*.ts"]
+}
