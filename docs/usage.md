@@ -1,11 +1,11 @@
-# Integration guide
+# Raccourci integration guide
 
 The library has one runtime export and no runtime dependencies. ESM and CommonJS core imports never access the DOM. All builds are minified; TypeScript declarations work without requiring DOM libraries in server projects.
 
 ## Parsing
 
 ```ts
-import { resolveAmount } from 'relative-amount';
+import { resolveAmount } from 'raccourci';
 
 resolveAmount('100 - (5*3)'); // 85
 resolveAmount('2.5k'); // 2500
@@ -98,7 +98,7 @@ Rounding accepts `none` (default), `floor`, `ceil`, `round`, or `trunc`, follows
 
 ```tsx
 import { useState } from 'react';
-import { resolveAmount } from 'relative-amount';
+import { resolveAmount } from 'raccourci';
 
 export function AmountInput({ total }: { total: number }) {
   const [value, setValue] = useState('');
@@ -121,7 +121,7 @@ The app owns input state and timing. Use a text input so words, arithmetic opera
 Copy `dist/umd/index.js` to your static assets:
 
 ```html
-<script src="/vendor/relative-amount.js"></script>
+<script src="/vendor/raccourci.js"></script>
 <input type="text" data-resolve-amount="200"
        data-resolve-locale="de-DE"
        data-resolve-precision="2"
@@ -166,7 +166,7 @@ For `2/3` with total 200 and German locale/precision 2:
 For TypeScript listeners, import the type without introducing runtime dependencies:
 
 ```ts
-import type { AmountResolvedDetail } from 'relative-amount';
+import type { AmountResolvedDetail } from 'raccourci';
 
 document.addEventListener('amountresolved', event => {
   const detail = (event as CustomEvent<AmountResolvedDetail>).detail;
@@ -181,11 +181,11 @@ The DOM event map is not modified globally; server consumers do not need DOM typ
 For a vanilla TypeScript script without imports or exports, copy the UMD declaration file too:
 
 ```ts
-/// <reference path="./vendor/relative-amount.d.ts" />
-RelativeAmount.resolveAmount('max - 10', 200);
+/// <reference path="./vendor/raccourci.d.ts" />
+Raccourci.resolveAmount('max - 10', 200);
 ```
 
-UMD supports AMD and CommonJS and is available at `relative-amount/umd`. `require('relative-amount')` loads the core without automatic DOM handling.
+UMD supports AMD and CommonJS and is available at `raccourci/umd`. `require('raccourci')` loads the core without automatic DOM handling.
 
 ## Build and package
 

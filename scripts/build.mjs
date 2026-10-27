@@ -11,7 +11,7 @@ const commonjs = readFileSync('dist/cjs/index.js', 'utf8');
 const umd = `(function (root, factory) {
   if (typeof module === 'object' && module.exports) factory(module.exports);
   else if (typeof define === 'function' && define.amd) define(['exports'], factory);
-  else factory(root.RelativeAmount = {});
+  else factory(root.Raccourci = {});
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (exports) {
 ${commonjs}
 ${readFileSync('browser/auto.js', 'utf8')}
@@ -19,7 +19,7 @@ ${readFileSync('browser/auto.js', 'utf8')}
 mkdirSync('dist/umd', { recursive: true });
 writeFileSync('dist/umd/index.js', umd);
 writeFileSync('dist/umd/package.json', '{"type":"commonjs"}\n');
-writeFileSync('dist/umd/index.d.ts', 'export as namespace RelativeAmount;\n' + readFileSync('dist/esm/index.d.ts', 'utf8'));
+writeFileSync('dist/umd/index.d.ts', 'export as namespace Raccourci;\n' + readFileSync('dist/esm/index.d.ts', 'utf8'));
 for (const format of ['esm', 'cjs', 'umd']) {
   const path = `dist/${format}/index.js`;
   const { code } = await minify(readFileSync(path, 'utf8'), {

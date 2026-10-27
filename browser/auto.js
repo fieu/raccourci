@@ -1,7 +1,7 @@
 // Included only inside the UMD factory; ESM and the CommonJS core stay pure.
 (function () {
   if (typeof document === 'undefined') return;
-  const installed = Symbol.for('relative-amount:auto');
+  const installed = Symbol.for('raccourci:auto');
   if (document[installed]) return;
   document[installed] = true;
 

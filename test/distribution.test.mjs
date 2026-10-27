@@ -7,12 +7,12 @@ import ts from 'typescript';
 
 const source = readFileSync(new URL('../dist/umd/index.js', import.meta.url), 'utf8');
 
-test('UMD has just the RelativeAmount global and one runtime export without a DOM', () => {
+test('UMD has just the Raccourci global and one runtime export without a DOM', () => {
   const context = {};
   runInNewContext(source, context);
-  assert.deepEqual(Object.keys(context), ['RelativeAmount']);
-  assert.deepEqual(Object.keys(context.RelativeAmount), ['resolveAmount']);
-  assert.equal(context.RelativeAmount.resolveAmount('half', 100), 50);
+  assert.deepEqual(Object.keys(context), ['Raccourci']);
+  assert.deepEqual(Object.keys(context.Raccourci), ['resolveAmount']);
+  assert.equal(context.Raccourci.resolveAmount('half', 100), 50);
 });
 
 test('AMD loads without creating a browser global', () => {
@@ -24,14 +24,14 @@ test('AMD loads without creating a browser global', () => {
   define.amd = {};
   const context = { define };
   runInNewContext(source, context);
-  assert.equal(context.RelativeAmount, undefined);
+  assert.equal(context.Raccourci, undefined);
   assert.equal(exports.resolveAmount('full', 100), 100);
 });
 
 test('CJS, ESM and UMD agree on shorthands and locale parsing', async () => {
   const require = createRequire(import.meta.url);
   const esm = await import('../dist/esm/index.js');
-  for (const api of [require('relative-amount'), require('relative-amount/umd')]) {
+  for (const api of [require('raccourci'), require('raccourci/umd')]) {
     for (const [input, total, options] of [
       ['max-1k', 2500, {}], ['25%+10', 200, {}], ['quarter+third', 360, {}],
       ['⅝', 200, {}], ['2m+.5k', undefined, {}], ['2k/4k', 200, {}], ['1kk', 200, {}],
@@ -48,8 +48,8 @@ test('core ESM and CommonJS imports install no DOM listeners', async () => {
   try {
     const esm = await import('../dist/esm/index.js?dom-independence');
     const require = createRequire(import.meta.url);
-    delete require.cache[require.resolve('relative-amount')];
-    const cjs = require('relative-amount');
+    delete require.cache[require.resolve('raccourci')];
+    const cjs = require('raccourci');
     assert.equal(esm.resolveAmount('max-10', 200), 190);
     assert.equal(cjs.resolveAmount('max-10', 200), 190);
   } finally {
@@ -61,8 +61,8 @@ test('core ESM and CommonJS imports install no DOM listeners', async () => {
 test('Intl is not needed for the default parser', () => {
   const context = { Intl: undefined };
   runInNewContext(source, context);
-  assert.equal(context.RelativeAmount.resolveAmount('half+10', 200), 110);
-  assert.equal(context.RelativeAmount.resolveAmount('1,5', 200, { locale: 'de-DE' }), null);
+  assert.equal(context.Raccourci.resolveAmount('half+10', 200), 110);
+  assert.equal(context.Raccourci.resolveAmount('1,5', 200, { locale: 'de-DE' }), null);
 });
 
 test('TypeScript resolves ESM, CommonJS, UMD and event detail types without DOM types', () => {

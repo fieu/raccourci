@@ -117,9 +117,9 @@ test('reloading UMD installs once and never emits synthetic input/change events'
     const resolve = api.resolveAmount;
     api.resolveAmount = (...args) => { resolutions++; return resolve(...args); };
   };
-  countCalls(context.RelativeAmount);
+  countCalls(context.Raccourci);
   runInNewContext(source, context);
-  countCalls(context.RelativeAmount);
+  countCalls(context.Raccourci);
   input.addEventListener('change', () => synthetic++);
   input.addEventListener('input', () => synthetic++);
   input.value = 'half';

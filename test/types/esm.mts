@@ -1,4 +1,4 @@
-import { resolveAmount, type ResolveOptions, type AmountResolvedDetail } from 'relative-amount';
+import { resolveAmount, type ResolveOptions, type AmountResolvedDetail } from 'raccourci';
 const options: ResolveOptions = { rounding: 'floor', locale: 'de-DE' };
 const amount: number | null = resolveAmount('half', 100, options);
 const calculated: number | null = resolveAmount('100-(5*3)');

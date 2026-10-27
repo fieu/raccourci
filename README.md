@@ -1,9 +1,9 @@
-# relative-amount
+# raccourci
 
-Dependency-free TypeScript amount parser. Minified ESM, CommonJS, UMD, and type declarations.
+French for “shortcut”. A dependency-free TypeScript amount parser. Minified ESM, CommonJS, UMD, and type declarations.
 
 ```ts
-import { resolveAmount } from 'relative-amount';
+import { resolveAmount } from 'raccourci';
 
 resolveAmount('100 - (5*3)'); // 85
 resolveAmount('2.5k'); // 2500
@@ -52,7 +52,7 @@ resolveAmount('1,5', undefined, { locale: 'en-US' }); // null (bad grouping)
 ESM and the CommonJS core attach no listeners. To enable automatic text inputs, copy `dist/umd/index.js` to your static assets:
 
 ```html
-<script src="/vendor/relative-amount.js"></script>
+<script src="/vendor/raccourci.js"></script>
 <input type="text" data-resolve-amount="200"
        data-resolve-locale="de-DE"
        data-resolve-precision="2"
@@ -73,7 +73,7 @@ document.addEventListener('amountresolved', event => {
 
 `amount` is after integer rounding but before display precision; `value` is the displayed string. No event on invalid or unchanged text, including blur after Enter. No synthetic `input`/`change` events or form submission changes. TypeScript exports the DOM-free `AmountResolvedDetail` type.
 
-UMD exposes `RelativeAmount.resolveAmount`, or registers with AMD/CommonJS. Global types are in `dist/umd/index.d.ts`. Also exported as `relative-amount/umd`.
+UMD exposes `Raccourci.resolveAmount`, or registers with AMD/CommonJS. Global types are in `dist/umd/index.d.ts`. Also exported as `raccourci/umd`.
 
 ## Build and install
 
@@ -85,7 +85,7 @@ npm test
 npm run size
 npm pack
 # In your app:
-npm install /path/to/relative-amount-0.1.0.tgz
+npm install /path/to/raccourci-0.1.0.tgz
 ```
 
 MIT licensed. Independent implementation inspired by the described Torn.com behavior.
