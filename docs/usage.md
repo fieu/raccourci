@@ -118,7 +118,7 @@ The app owns input state and timing. Use a text input so words, arithmetic opera
 
 ## Automatic UMD inputs
 
-Copy `dist/umd/index.js` to your static assets:
+Copy `dist/umd/index.cjs` to your static assets as `/vendor/raccourci.js`:
 
 ```html
 <script src="/vendor/raccourci.js"></script>
@@ -178,7 +178,7 @@ The DOM event map is not modified globally; server consumers do not need DOM typ
 
 ## Global and CommonJS imports
 
-For a vanilla TypeScript script without imports or exports, copy the UMD declaration file too:
+For a vanilla TypeScript script without imports or exports, copy `dist/umd/index.d.cts` as `/vendor/raccourci.d.ts` too:
 
 ```ts
 /// <reference path="./vendor/raccourci.d.ts" />
@@ -189,4 +189,6 @@ UMD supports AMD and CommonJS and is available at `raccourci/umd`. `require('rac
 
 ## Build and package
 
-Node.js 20+ is needed for development. Run `npm install`, `npm test`, `npm run size`, and `npm pack`. The tarball contains minified distributions, declarations, a compact README, and the MIT license. Tests, full documentation, and source stay in the development checkout. The package has not been published to npm; install the generated local tarball in your app.
+Vite library mode bundles `src/index.ts` into ESM and CommonJS. A second build bundles `browser/index.ts` into UMD, including automatic input handling. The configuration is in `vite.config.ts`; `vite-plugin-dts` generates declarations and Vite runs Terser minification. CommonJS and UMD use `.cjs` files with `.d.cts` declarations, while ESM uses `.js` and `.d.ts`.
+
+Node.js 20.19+ or 22.12+ is needed for development. Run `npm install`, `npm test`, `npm run size`, and `npm pack`. The tarball contains minified distributions, declarations, a compact README, and the MIT license. Tests, full documentation, and source stay in the development checkout. The package has not been published to npm; install the generated local tarball in your app.

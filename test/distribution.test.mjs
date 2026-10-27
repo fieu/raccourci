@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import { runInNewContext } from 'node:vm';
 import ts from 'typescript';
 
-const source = readFileSync(new URL('../dist/umd/index.js', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../dist/umd/index.cjs', import.meta.url), 'utf8');
 
 test('UMD has just the Raccourci global and one runtime export without a DOM', () => {
   const context = {};

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { Window } from 'happy-dom';
 
-const source = readFileSync(new URL('../dist/umd/index.js', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../dist/umd/index.cjs', import.meta.url), 'utf8');
 
 function setup(attributes = {}) {
   const window = new Window();
@@ -112,20 +112,19 @@ test('invalid attributes and invalid input never change text or emit an event', 
 
 test('reloading UMD installs once and never emits synthetic input/change events', () => {
   const { input, enter, window, context } = setup({ amount: '200' });
-  let resolutions = 0, synthetic = 0;
-  const countCalls = api => {
-    const resolve = api.resolveAmount;
-    api.resolveAmount = (...args) => { resolutions++; return resolve(...args); };
+  let registrations = 0, synthetic = 0;
+  const addEventListener = window.document.addEventListener.bind(window.document);
+  window.document.addEventListener = (type, ...args) => {
+    if (type === 'keydown' || type === 'focusout') registrations++;
+    return addEventListener(type, ...args);
   };
-  countCalls(context.Raccourci);
   runInNewContext(source, context);
-  countCalls(context.Raccourci);
+  assert.equal(registrations, 0, 'reloading must not install more input handlers');
   input.addEventListener('change', () => synthetic++);
   input.addEventListener('input', () => synthetic++);
   input.value = 'half';
   enter();
   assert.equal(input.value, '100');
-  assert.equal(resolutions, 1);
   assert.equal(synthetic, 0);
   const event = new window.KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true });
   input.dispatchEvent(event);

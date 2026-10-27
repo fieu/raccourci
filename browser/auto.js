@@ -1,5 +1,7 @@
-// Included only inside the UMD factory; ESM and the CommonJS core stay pure.
-(function () {
+import { resolveAmount } from '../src/index';
+
+// Imported only by the UMD entry; ESM and the CommonJS core stay pure.
+export function installAutoInputs() {
   if (typeof document === 'undefined') return;
   const installed = Symbol.for('raccourci:auto');
   if (document[installed]) return;
@@ -19,7 +21,7 @@
     if (precisionAttribute !== null && !/^\d{1,2}$/.test(precisionAttribute.trim())) return;
     if (precision > 20) return;
     const originalValue = input.value;
-    const amount = exports.resolveAmount(originalValue, total, { locale, rounding });
+    const amount = resolveAmount(originalValue, total, { locale, rounding });
     if (amount === null) return;
     const rounded = Number(amount.toFixed(precision)) || 0;
     const value = locale === undefined ? String(rounded) :
@@ -37,4 +39,4 @@
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter' && !event.isComposing) commit(event);
   });
-})();
+}

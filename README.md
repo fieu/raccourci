@@ -49,7 +49,7 @@ resolveAmount('1,5', undefined, { locale: 'en-US' }); // null (bad grouping)
 
 ## Automatic UMD inputs
 
-ESM and the CommonJS core attach no listeners. To enable automatic text inputs, copy `dist/umd/index.js` to your static assets:
+ESM and the CommonJS core attach no listeners. To enable automatic text inputs, copy `dist/umd/index.cjs` to your static assets as `/vendor/raccourci.js`:
 
 ```html
 <script src="/vendor/raccourci.js"></script>
@@ -73,11 +73,13 @@ document.addEventListener('amountresolved', event => {
 
 `amount` is after integer rounding but before display precision; `value` is the displayed string. No event on invalid or unchanged text, including blur after Enter. No synthetic `input`/`change` events or form submission changes. TypeScript exports the DOM-free `AmountResolvedDetail` type.
 
-UMD exposes `Raccourci.resolveAmount`, or registers with AMD/CommonJS. Global types are in `dist/umd/index.d.ts`. Also exported as `raccourci/umd`.
+UMD exposes `Raccourci.resolveAmount`, or registers with AMD/CommonJS. Global types are in `dist/umd/index.d.cts`. Also exported as `raccourci/umd`.
 
 ## Build and install
 
-Not published to npm. With Node.js 20+:
+`npm run build` uses Vite library mode for ESM/CommonJS and a separate UMD entry. `vite-plugin-dts` generates declarations, and Vite runs Terser minification. Build configuration lives in `vite.config.ts`.
+
+Not published to npm. With Node.js 20.19+ or 22.12+:
 
 ```sh
 npm install
