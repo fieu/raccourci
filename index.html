@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Try raccourci: a small TypeScript library for fractions, percentages, shortcuts, and arithmetic. Install it as a package or a script tag.">
+    <meta name="color-scheme" content="light">
+    <title>raccourci — shortcuts for amounts</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='white'/%3E%3Ctext x='10' y='30' font-family='monospace' font-size='32' fill='black'%3Er%3C/text%3E%3C/svg%3E">
+    <script type="module" crossorigin src="./assets/index-HmCJWxRL.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BMKrTkv9.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#try">Skip to demo</a>
+    <main>
+      <nav aria-label="Main navigation">
+        <span class="version" id="version">v0.1.0</span>
+        <div><a href="#install">Install</a><a href="https://github.com/fieu/raccourci">GitHub ↗</a></div>
+      </nav>
+
+      <header>
+        <h1>raccourci<span aria-hidden="true">.</span></h1>
+        <p class="translation">French for “shortcut”.</p>
+        <p>Fractions, percentages, words, and arithmetic.<br>A small TypeScript library with no runtime dependencies.</p>
+      </header>
+
+      <section id="try" aria-labelledby="try-heading">
+        <h2 id="try-heading">Try it</h2>
+        <form id="demo-form" novalidate>
+          <label class="expression-label" for="expression">Expression
+            <input id="expression" name="expression" type="text" value="2/3" autocomplete="off" spellcheck="false" aria-describedby="result-note">
+          </label>
+          <div class="fields">
+            <label for="total"><span>Reference amount <span class="optional">(optional)</span></span>
+              <input id="total" name="total" type="number" min="0" step="any" value="200" placeholder="No reference">
+            </label>
+            <label for="locale">Number format
+              <select id="locale" name="locale">
+                <option value="">Default · 1.5</option>
+                <option value="en-US">English · 1,234.5</option>
+                <option value="fr-FR">French · 1 234,5</option>
+                <option value="de-DE">German · 1.234,5</option>
+              </select>
+            </label>
+          </div>
+          <div class="examples" aria-label="Example expressions">
+            <button type="button" data-example="1/2">1/2</button>
+            <button type="button" data-example="50%">50%</button>
+            <button type="button" data-example="max - 10">max − 10</button>
+            <button type="button" data-example="half + quarter">half + quarter</button>
+            <button type="button" data-example="2k">2k</button>
+            <button type="button" data-example="100 - (5*3)">100 − (5 × 3)</button>
+          </div>
+        </form>
+        <div class="result" role="status" aria-live="polite" aria-atomic="true">
+          <span class="result-label">Result</span>
+          <output id="result" for="expression total locale">133.33333333333331</output>
+          <span id="result-note">Full numeric precision. Clear the reference amount for arithmetic.</span>
+        </div>
+        <noscript><p>Enable JavaScript to use the live demo. The downloads and install instructions work without it.</p></noscript>
+      </section>
+
+      <section id="install" aria-labelledby="install-heading">
+        <h2 id="install-heading">Install</h2>
+        <p><a class="download" id="package-download" href="./raccourci-0.1.0.tgz" download>Download the package ↓</a></p>
+        <p>Download the built package, then run this in the folder containing it. This release is not on npm yet.</p>
+        <div class="code-block"><pre><code id="install-command">npm install ./raccourci-0.1.0.tgz</code></pre><button type="button" data-copy="install-command" aria-label="Copy install command">Copy</button></div>
+        <p>Use the same function in vanilla TypeScript, React, or Node.js:</p>
+        <div class="code-block"><pre><code id="esm-example">import { resolveAmount } from 'raccourci';
+
+resolveAmount('half + 10', 200); // 110
+resolveAmount('100 - (5*3)');    // 85</code></pre><button type="button" data-copy="esm-example" aria-label="Copy TypeScript example">Copy</button></div>
+
+        <h3>Or use a script tag</h3>
+        <p>No build step. Mark a text input to convert its value on blur or Enter.</p>
+        <div class="code-block"><pre><code id="browser-example">&lt;script src="https://fieu.github.io/raccourci/raccourci.umd.js"&gt;&lt;/script&gt;
+&lt;input type="text" data-resolve-amount="200"&gt;</code></pre><button type="button" data-copy="browser-example" aria-label="Copy script-tag example">Copy</button></div>
+        <p class="small">Typing <code>2/3</code> becomes <code>133.3333</code>. Optional attributes: <code>data-resolve-locale</code>, <code>data-resolve-precision</code>, and <code>data-resolve-rounding</code>.</p>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section aria-labelledby="shortcuts-heading">
+        <h2 id="shortcuts-heading">A few shortcuts</h2>
+        <table>
+          <caption class="visually-hidden">Example results with a reference amount of 200</caption>
+          <thead><tr><th scope="col">Input</th><th scope="col">With 200</th></tr></thead>
+          <tbody>
+            <tr><td><code>all</code>, <code>full</code>, <code>max</code></td><td>200</td></tr>
+            <tr><td><code>half</code>, <code>1/2</code>, <code>50%</code></td><td>100</td></tr>
+            <tr><td><code>quarter</code>, <code>¼</code></td><td>50</td></tr>
+            <tr><td><code>max - 10</code></td><td>190</td></tr>
+            <tr><td><code>2.5k</code></td><td>2500</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Invalid expressions return <code>null</code>. A standalone fraction is a share of the reference; division inside a larger expression follows normal arithmetic. Results use JavaScript numbers and are not clamped.</p>
+      </section>
+
+      <footer><a href="./LICENSE">MIT license</a><a href="https://github.com/fieu/raccourci">Source on GitHub ↗</a></footer>
+    </main>
+  </body>
+</html>
