@@ -11,8 +11,8 @@ const directory = fileURLToPath(new URL('../../site/', import.meta.url));
 const html = readFileSync(resolve(directory, 'index.html'), 'utf8');
 const { version } = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
 
-function setup() {
-  const window = new Window({ url: 'https://fieu.github.io/raccourci/', settings: {
+function setup(url = 'https://raccourci.js.org/') {
+  const window = new Window({ url, settings: {
     disableCSSFileLoading: true, disableJavaScriptFileLoading: true,
   } });
   window.document.write(html);
@@ -87,10 +87,10 @@ test('copy controls copy the real install command and handle clipboard denial', 
   assert.match(query('#copy-status').textContent, /selected/);
 });
 
-test('install downloads and relative assets exist for the GitHub Pages project path', () => {
+test('install downloads and relative assets exist on the custom domain', () => {
   const { query, window } = setup();
   const download = query('#package-download');
-  assert.equal(download.href, `https://fieu.github.io/raccourci/raccourci-${version}.tgz`);
+  assert.equal(download.href, `https://raccourci.js.org/raccourci-${version}.tgz`);
   assert.ok(existsSync(resolve(directory, `raccourci-${version}.tgz`)));
   assert.ok(existsSync(resolve(directory, 'raccourci.umd.js')));
   assert.ok(existsSync(resolve(directory, '.nojekyll')));
@@ -103,4 +103,13 @@ test('install downloads and relative assets exist for the GitHub Pages project p
   const context = {};
   runInNewContext(readFileSync(resolve(directory, 'raccourci.umd.js'), 'utf8'), context);
   assert.equal(context.Raccourci.resolveAmount('half', 200), 100);
+});
+
+test('domain configuration survives builds and links support either hosting path', () => {
+  assert.equal(readFileSync(resolve(directory, 'CNAME'), 'utf8'), 'raccourci.js.org\n');
+  for (const base of ['https://raccourci.js.org/', 'https://fieu.github.io/raccourci/']) {
+    const { query } = setup(base);
+    assert.equal(query('#package-download').href, `${base}raccourci-${version}.tgz`);
+    assert.match(query('#browser-example').textContent, /https:\/\/raccourci\.js\.org\/raccourci\.umd\.js/);
+  }
 });
