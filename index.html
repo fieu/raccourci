@@ -7,7 +7,7 @@
     <meta name="color-scheme" content="light">
     <title>raccourci — shortcuts for amounts</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='white'/%3E%3Ctext x='10' y='30' font-family='monospace' font-size='32' fill='black'%3Er%3C/text%3E%3C/svg%3E">
-    <script type="module" crossorigin src="./assets/index-HmCJWxRL.js"></script>
+    <script type="module" crossorigin src="./assets/index-BgqNjuJP.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BMKrTkv9.css">
   </head>
   <body>
@@ -15,7 +15,7 @@
     <main>
       <nav aria-label="Main navigation">
         <span class="version" id="version">v0.1.0</span>
-        <div><a href="#install">Install</a><a href="https://github.com/fieu/raccourci">GitHub ↗</a></div>
+        <div><a href="#install">Install</a><a href="https://www.npmjs.com/package/raccourci">npm ↗</a><a href="https://github.com/fieu/raccourci">GitHub ↗</a></div>
       </nav>
 
       <header>
@@ -62,14 +62,16 @@
 
       <section id="install" aria-labelledby="install-heading">
         <h2 id="install-heading">Install</h2>
-        <p><a class="download" id="package-download" href="./raccourci-0.1.0.tgz" download>Download the package ↓</a></p>
-        <p>Download the built package, then run this in the folder containing it. This release is not on npm yet.</p>
-        <div class="code-block"><pre><code id="install-command">npm install ./raccourci-0.1.0.tgz</code></pre><button type="button" data-copy="install-command" aria-label="Copy install command">Copy</button></div>
+        <p>Install from npm. TypeScript declarations and ESM, CommonJS, and browser builds are included.</p>
+        <div class="code-block"><pre><code id="install-command">npm install raccourci</code></pre><button type="button" data-copy="install-command" aria-label="Copy install command">Copy</button></div>
         <p>Use the same function in vanilla TypeScript, React, or Node.js:</p>
         <div class="code-block"><pre><code id="esm-example">import { resolveAmount } from 'raccourci';
 
 resolveAmount('half + 10', 200); // 110
 resolveAmount('100 - (5*3)');    // 85</code></pre><button type="button" data-copy="esm-example" aria-label="Copy TypeScript example">Copy</button></div>
+
+        <p><a class="download" id="package-download" href="./raccourci-0.1.0.tgz" download>Download the package archive ↓</a></p>
+        <p class="small">For offline installation: <code id="archive-command">npm install ./raccourci-0.1.0.tgz</code></p>
 
         <h3>Or use a script tag</h3>
         <p>No build step. Mark a text input to convert its value on blur or Enter.</p>
