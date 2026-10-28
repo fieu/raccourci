@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "noEmit": true,
+    "declaration": false,
+    "resolveJsonModule": true
+  },
+  "include": ["demo/**/*.ts", "src/**/*.ts"]
+}

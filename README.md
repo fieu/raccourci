@@ -91,3 +91,9 @@ npm install /path/to/raccourci-0.1.0.tgz
 ```
 
 MIT licensed. Independent implementation inspired by the described Torn.com behavior.
+
+## Demo site
+
+The static Vite demo lives in `demo/`. Run `npm run build:demo` to create `site/`, including the browser build and an installable package download. Run `npm run test:demo` to check the built page's interactions and assets.
+
+The `gh-pages` branch contains the deployable output. In GitHub Pages settings, select **Deploy from a branch → gh-pages → / (root)**.

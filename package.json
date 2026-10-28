@@ -33,6 +33,8 @@
   ],
   "scripts": {
     "build": "vite build && vite build --mode umd",
+    "build:demo": "tsc --project tsconfig.demo.json && npm run build && vite build --config vite.demo.config.ts && node scripts/package-demo.mjs && npm pack --ignore-scripts --pack-destination site --cache node_modules/.cache/npm",
+    "test:demo": "npm run build:demo && node --test test/demo/*.test.mjs",
     "test": "npm run build && node --test test/*.test.mjs",
     "prepack": "npm run build",
     "size": "node scripts/size.mjs"
