@@ -71,11 +71,28 @@ resolveAmount('100 - (5*3)');    // 85</code></pre><button type="button" data-co
         <p><a class="download" id="package-download" href="./raccourci-0.1.0.tgz" download>Download the package archive ↓</a></p>
         <p class="small">For offline installation: <code id="archive-command">npm install ./raccourci-0.1.0.tgz</code></p>
 
-        <h3>Or use a script tag</h3>
+        <h3>Use a CDN</h3>
+        <p>Load raccourci directly from unpkg or jsDelivr. Both examples are pinned to version <code id="cdn-version">0.1.0</code>.</p>
+        <label class="cdn-picker" for="cdn-provider">CDN provider
+          <select id="cdn-provider">
+            <option value="unpkg">unpkg</option>
+            <option value="jsdelivr">jsDelivr</option>
+          </select>
+        </label>
+
+        <h4>Automatic inputs</h4>
         <p>No build step. Mark a text input to convert its value on blur or Enter.</p>
-        <div class="code-block"><pre><code id="browser-example">&lt;script src="https://raccourci.js.org/raccourci.umd.js"&gt;&lt;/script&gt;
+        <div class="code-block"><pre><code id="browser-example">&lt;script src="https://unpkg.com/raccourci@0.1.0/dist/umd/index.cjs"&gt;&lt;/script&gt;
 &lt;input type="text" data-resolve-amount="200"&gt;</code></pre><button type="button" data-copy="browser-example" aria-label="Copy script-tag example">Copy</button></div>
         <p class="small">Typing <code>2/3</code> becomes <code>133.3333</code>. Optional attributes: <code>data-resolve-locale</code>, <code>data-resolve-precision</code>, and <code>data-resolve-rounding</code>.</p>
+
+        <h4>ES modules</h4>
+        <p>Import the parser for vanilla modules, React, or other framework-controlled inputs.</p>
+        <div class="code-block"><pre><code id="cdn-esm-example">&lt;script type="module"&gt;
+  import { resolveAmount } from 'https://unpkg.com/raccourci@0.1.0/dist/esm/index.js';
+  console.log(resolveAmount('half + 10', 200)); // 110
+&lt;/script&gt;</code></pre><button type="button" data-copy="cdn-esm-example" aria-label="Copy CDN module example">Copy</button></div>
+        <p class="small">You can also <a id="browser-download" href="./raccourci.umd.js" download>download the browser build</a> to host it yourself.</p>
         <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
       </section>
 

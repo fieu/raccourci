@@ -45,6 +45,25 @@ element<HTMLElement>('#version').textContent = `v${version}`;
 element<HTMLElement>('#archive-command').textContent = `npm install ./raccourci-${version}.tgz`;
 element<HTMLAnchorElement>('#package-download').href = `./raccourci-${version}.tgz`;
 
+const cdnProvider = element<HTMLSelectElement>('#cdn-provider');
+
+function updateCdnExamples(): void {
+  const jsdelivr = cdnProvider.value === 'jsdelivr';
+  const base = jsdelivr ? `https://cdn.jsdelivr.net/npm/raccourci@${version}` :
+    `https://unpkg.com/raccourci@${version}`;
+  const browserUrl = `${base}/dist/umd/index.cjs`;
+  element<HTMLElement>('#cdn-version').textContent = version;
+  // jsDelivr serves raw .cjs as application/node; its +esm endpoint is browser-safe.
+  element<HTMLElement>('#browser-example').textContent = jsdelivr ?
+    `<script type="module">\n  import '${browserUrl}/+esm';\n</script>\n<input type="text" data-resolve-amount="200">` :
+    `<script src="${browserUrl}"></script>\n<input type="text" data-resolve-amount="200">`;
+  element<HTMLElement>('#cdn-esm-example').textContent =
+    `<script type="module">\n  import { resolveAmount } from '${base}/dist/esm/index.js';\n  console.log(resolveAmount('half + 10', 200)); // 110\n</script>`;
+}
+
+cdnProvider.addEventListener('change', updateCdnExamples);
+updateCdnExamples();
+
 for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
   button.addEventListener('click', async () => {
     const code = element<HTMLElement>(`#${button.dataset.copy}`);

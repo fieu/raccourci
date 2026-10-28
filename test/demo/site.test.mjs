@@ -110,6 +110,46 @@ test('domain configuration survives builds and links support either hosting path
   for (const base of ['https://raccourci.js.org/', 'https://fieu.github.io/raccourci/']) {
     const { query } = setup(base);
     assert.equal(query('#package-download').href, `${base}raccourci-${version}.tgz`);
-    assert.match(query('#browser-example').textContent, /https:\/\/raccourci\.js\.org\/raccourci\.umd\.js/);
+    assert.equal(query('#browser-download').href, `${base}raccourci.umd.js`);
+  }
+});
+
+test('CDN selection produces version-pinned parser and automatic-input examples', () => {
+  const { query, change } = setup();
+  assert.equal(query('#cdn-version').textContent, version);
+  for (const [provider, base] of [
+    ['unpkg', `https://unpkg.com/raccourci@${version}`],
+    ['jsdelivr', `https://cdn.jsdelivr.net/npm/raccourci@${version}`],
+    ['unpkg', `https://unpkg.com/raccourci@${version}`],
+  ]) {
+    change('#cdn-provider', provider, 'change');
+    const automatic = query('#browser-example').textContent;
+    assert.ok(automatic.includes(`${base}/dist/umd/index.cjs`));
+    assert.ok(automatic.includes('<input type="text" data-resolve-amount="200">'));
+    assert.ok(query('#cdn-esm-example').textContent.includes(`from '${base}/dist/esm/index.js'`));
+    if (provider === 'jsdelivr') {
+      assert.ok(automatic.includes(`import '${base}/dist/umd/index.cjs/+esm';`));
+      assert.ok(automatic.startsWith('<script type="module">'));
+      assert.doesNotMatch(automatic, /<script src=/);
+    } else {
+      assert.ok(automatic.startsWith(`<script src="${base}/dist/umd/index.cjs">`));
+    }
+  }
+});
+
+test('CDN copy buttons use the currently selected provider', async () => {
+  const { query, change, window } = setup();
+  let copied;
+  Object.defineProperty(window.navigator, 'clipboard', { configurable: true, value: {
+    async writeText(text) { copied = text; },
+  } });
+  for (const provider of ['unpkg', 'jsdelivr']) {
+    change('#cdn-provider', provider, 'change');
+    for (const id of ['browser-example', 'cdn-esm-example']) {
+      query(`[data-copy="${id}"]`).click();
+      await nextTurn();
+      assert.equal(copied, query(`#${id}`).textContent);
+      assert.ok(copied.includes(provider === 'unpkg' ? 'https://unpkg.com/' : 'https://cdn.jsdelivr.net/'));
+    }
   }
 });
