@@ -14,6 +14,14 @@ resolveAmount('2/3', 200); // 133.33333333333331
 resolveAmount('1.234,5', undefined, { locale: 'de-DE' }); // 1234.5
 ```
 
+## Install
+
+```sh
+npm install raccourci
+```
+
+ESM, CommonJS, UMD, and TypeScript declarations are included. There are no runtime dependencies.
+
 ## API
 
 `resolveAmount(input: string | number, total?: number, options?: ResolveOptions): number | null`
@@ -75,19 +83,17 @@ document.addEventListener('amountresolved', event => {
 
 UMD exposes `Raccourci.resolveAmount`, or registers with AMD/CommonJS. Global types are in `dist/umd/index.d.cts`. Also exported as `raccourci/umd`.
 
-## Build and install
+## Development
 
 `npm run build` uses Vite library mode for ESM/CommonJS and a separate UMD entry. `vite-plugin-dts` generates declarations, and Vite runs Terser minification. Build configuration lives in `vite.config.ts`.
 
-Not published to npm. With Node.js 20.19+ or 22.12+:
+Development requires Node.js 20.19+ or 22.12+:
 
 ```sh
 npm install
 npm test
 npm run size
 npm pack
-# In your app:
-npm install /path/to/raccourci-0.1.0.tgz
 ```
 
 MIT licensed. Independent implementation inspired by the described Torn.com behavior.

@@ -2,6 +2,8 @@
 
 The library has one runtime export and no runtime dependencies. ESM and CommonJS core imports never access the DOM. All builds are minified; TypeScript declarations work without requiring DOM libraries in server projects.
 
+Install it with `npm install raccourci`.
+
 ## Parsing
 
 ```ts
@@ -191,4 +193,4 @@ UMD supports AMD and CommonJS and is available at `raccourci/umd`. `require('rac
 
 Vite library mode bundles `src/index.ts` into ESM and CommonJS. A second build bundles `browser/index.ts` into UMD, including automatic input handling. The configuration is in `vite.config.ts`; `vite-plugin-dts` generates declarations and Vite runs Terser minification. CommonJS and UMD use `.cjs` files with `.d.cts` declarations, while ESM uses `.js` and `.d.ts`.
 
-Node.js 20.19+ or 22.12+ is needed for development. Run `npm install`, `npm test`, `npm run size`, and `npm pack`. The tarball contains minified distributions, declarations, a compact README, and the MIT license. Tests, full documentation, and source stay in the development checkout. The package has not been published to npm; install the generated local tarball in your app.
+Node.js 20.19+ or 22.12+ is needed for development. Run `npm install`, `npm test`, `npm run size`, and `npm pack`. The tarball contains minified distributions, declarations, a compact README, and the MIT license. Tests, full documentation, and source stay in the development checkout. Install the published package with `npm install raccourci`, or install a downloaded archive with `npm install ./raccourci-0.1.0.tgz`.

@@ -54,5 +54,17 @@
     "typescript"
   ],
   "unpkg": "./dist/umd/index.cjs",
-  "jsdelivr": "./dist/umd/index.cjs"
+  "jsdelivr": "./dist/umd/index.cjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fieu/raccourci.git"
+  },
+  "homepage": "https://raccourci.js.org/",
+  "bugs": {
+    "url": "https://github.com/fieu/raccourci/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

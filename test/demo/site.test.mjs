@@ -77,7 +77,7 @@ test('copy controls copy the real install command and handle clipboard denial', 
   } });
   query('[data-copy="install-command"]').click();
   await nextTurn();
-  assert.equal(copied, `npm install ./raccourci-${version}.tgz`);
+  assert.equal(copied, 'npm install raccourci');
   assert.match(query('#copy-status').textContent, /Copied/);
   Object.defineProperty(window.navigator, 'clipboard', { configurable: true, value: {
     async writeText() { throw new Error('denied'); },

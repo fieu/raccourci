@@ -42,7 +42,7 @@ for (const button of examples) button.addEventListener('click', () => {
 });
 
 element<HTMLElement>('#version').textContent = `v${version}`;
-element<HTMLElement>('#install-command').textContent = `npm install ./raccourci-${version}.tgz`;
+element<HTMLElement>('#archive-command').textContent = `npm install ./raccourci-${version}.tgz`;
 element<HTMLAnchorElement>('#package-download').href = `./raccourci-${version}.tgz`;
 
 for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
